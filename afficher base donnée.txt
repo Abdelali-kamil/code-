@@ -1,0 +1,15 @@
+<?php 
+    $rq = $con->prepare("SELECT * FROM test1 ");
+    $rq->execute();
+    $results = $rq->fetchAll();
+                                                                                                                    
+    foreach($results as $res)
+    {
+  ?>
+
+=========================
+<?=$res['titre']?>
+====================
+<?php
+  }
+?>

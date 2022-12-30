@@ -1,0 +1,57 @@
+<?php
+     include 'connect.php';
+     
+    if($_SERVER['REQUEST_METHOD'] == 'POST')
+    {
+       
+
+        $nom=$_POST["nom"];
+        $mail=$_POST["mail"]; 
+        $tele=$_POST["tele"];
+        $Objects=$_POST["Objects"];
+        $messages=$_POST["messages"];
+
+        $Errors = array();
+        
+    
+        if(empty($Errors))
+        {
+            $addtmessages=$con->prepare("INSERT into
+                                        messages(nom,mail,tele,Objects,messages)
+                                        values (:nom,:mail,:tele,:Objects,:messages)");
+            $addtmessages->execute(array(
+            'nom' => $nom,
+            'mail' => $mail,
+            'tele' => $tele,
+            'Objects' => $Objects,
+            'messages' => $messages ));
+        
+
+            if($addtmessages)
+            {
+               $msgSucces = "Votre message a été envoyé";
+            }
+
+            }
+            else
+            {
+                $msgError = "Error";
+            }
+            }
+        }
+    
+===================================================================
+
+       afficher Msg save
+
+ <form action="<?php echo $_SERVER["PHP_SELF"]?>" method="POST" name="contactForm" class="mb-5">
+                    <?php 
+                if(isset($msgSucces))
+                {
+                    echo "<div class='alert alert-success'>$msgSucces</div>";
+                }
+                elseif(isset($msgError))
+                {
+                    echo "<div class='alert alert-danger'>$msgError</div>";
+                }
+                ?>

@@ -1,0 +1,39 @@
+ 
+
+     use PHPMailer\PHPMailer\PHPMailer;
+     require 'vendor/autoload.php';
+
+
+============================================
+           composer.lock
+           composer.json
+	   vendor 
+           .bash_profile
+
+=============================
+if($addtmessages)
+            {
+                //=====================================================
+             try {
+                 //Server settings
+               $phpmailer = new PHPMailer(true);
+               $phpmailer->isSMTP();
+               $phpmailer->Host = 'node39-eu.n0c.com';
+               $phpmailer->SMTPAuth = true;
+               $phpmailer->Port = 587;
+               $phpmailer->Username = 'info@assurancetransporteurs.fr';
+               $phpmailer->Password = '1?;LhcM!818!c2!9?9';                                  
+                 //Recipients
+               $phpmailer->setFrom('info@assurancetransporteurs.fr', 'assurancetransporteurs');
+               $phpmailer->addAddress('info@assurancetransporteurs.fr', 'Joe User');     //Add a recipient
+                 //Content
+               $phpmailer->isHTML(true);                                  //Set email format to HTML
+               $phpmailer->Subject = 'assurance transporteurs';
+               $phpmailer->Body    = '<h2>nom : </h2>'.$nom.'<br><h2>mail : </h2>'.$mail.'<br><h2>tele : </h2>'.$tele.'<br><h2>Objects : </h2>'.$Objects.'<br><h2>messages : </h2>'.$messages.'<br>' ;
+           
+               $phpmailer->send();
+               $msg = 'Votre message a été envoyé';
+               } catch (Exception $e) {
+                   echo "Message could not be sent. Mailer Error: {$phpmailer->ErrorInfo}";
+               }
+                 }

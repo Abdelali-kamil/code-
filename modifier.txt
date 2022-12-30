@@ -1,0 +1,62 @@
+ <?php
+        if($_SERVER['REQUEST_METHOD'] == 'POST')
+        {
+            $nom=$_POST["nom"];
+            $prenom=$_POST["prenom"]; 
+            $raison=$_POST["raison"];
+            $activite=$_POST["activite"];
+            $assure=$_POST["assure"];
+            $ancienne=$_POST["ancienne"];
+            $motif=$_POST["motif"];
+            $code=$_POST["code"];
+            $email=$_POST["email"];
+            $tele=$_POST["tele"];
+
+            $addtransporteur=$con->prepare("UPDATE transporteur
+                                            set prenom = ?
+                                            ,raison = ? ,
+                                            activite = ?
+                                            ,assure = ?
+                                            ,ancienne = ?
+                                            ,motif = ?
+                                            ,code = ? 
+                                            ,email = ?
+                                            ,tele = ?
+                                            Where nom = ?");
+            $addtransporteur->execute(array($prenom,$raison,$activite,$assure,$ancienne, $motif,$code,$email,$tele,$nom));
+            if($addtransporteur)
+            {
+                $_SESSION["msgModifier"] = "La Modification a ete bien effuctue";
+                header('Location: modifier.php?nom=' . $nom);
+                exit;
+            }
+        }
+        ?>
+
+=========================================
+<?php
+                        if(isset($_GET["nom"]))
+                        {
+                            $nom = $_GET['nom'];
+                            echo "<h2>Modifier assurance : $nom  </h2>";
+                        }
+                        ?>
+                        <p class="erreur_message">
+                        <?php 
+                            if(isset($addtransporteur)){
+                                echo $addtransporteur ;
+                            }
+                        ?>
+                        </p>
+                        
+                    
+                        <?php
+                        if(isset($_SESSION["msgModifier"]))
+                        {
+                            echo '<div class="alert alert-info">' . $_SESSION["msgModifier"] . '</div>';
+                            unset($_SESSION["msgModifier"]);
+                        }
+                        
+                            if(isset($_GET["nom"]))
+                            {
+                                ?>

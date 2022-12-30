@@ -1,0 +1,15 @@
+<?php
+
+    include "connect.php";
+    session_start();
+
+  $nom= $_GET['nom'];
+  $rq = $con->prepare ("DELETE FROM transporteur WHERE nom = '$nom'");
+  $rq->execute();
+  if($rq)
+  {
+    $_SESSION["msgsup"] = "Supprimer";
+    header("Location:basededonnée.php");
+  }
+  
+?>
